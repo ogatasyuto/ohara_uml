@@ -1,0 +1,7 @@
+'PlantUMLのサンプル'
+
+@startuml
+object ほ乳類
+object アザラシ
+ほ乳類 --> アザラシ
+@enduml

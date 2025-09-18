@@ -29,7 +29,6 @@ opt 入力内容に不備がある場合
     C1 -> B2:エラーメッセージを表示()
     note right of B2:ユーザーID、パスワードは正しく入力してください
     end note
-    end
 
 C1 -> C2: 認証を要求()
 deactivate C1

@@ -3,10 +3,10 @@ left to right direction
 actor ユーザー as U
 
 rectangle Web訪問者システム {
-  usecase "自分の情報を登録する" as UC1
-  usecase "自分と他の人の情報を参照する" as UC2
-  usecase "自分の情報を変更する" as UC3
-  usecase "自分の情報を削除する" as UC4
+  usecase "訪問者の情報を登録する" as UC1
+  usecase "自分と他の訪問者の情報を参照する" as UC2
+  usecase "訪問者の情報を変更する" as UC3
+  usecase "訪問者の情報を削除する" as UC4
   usecase "ログインする" as UC5
   usecase "ログアウトする" as UC6
 }

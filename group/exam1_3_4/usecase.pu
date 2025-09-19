@@ -1,0 +1,24 @@
+@startuml 大原情報科学大学・図書館システム
+left to right direction
+
+actor 学生 as Student
+actor 教職員 as Teacher
+actor 事務職員 as Staff
+
+rectangle 図書館システム {
+  usecase "図書を借りる" as Checkout
+  usecase "図書を返却する" as Return
+  usecase "図書を予約する" as Reserve
+  usecase "貸出履歴と図書の予約を閲覧する" as ViewHistory
+}
+
+Student --> Checkout
+Student --> Return
+Student --> Reserve
+
+Teacher --> Checkout
+Teacher --> Return
+Teacher --> Reserve
+
+Staff --> ViewHistory
+@enduml

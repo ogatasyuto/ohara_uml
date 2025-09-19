@@ -1,0 +1,37 @@
+@startuml
+!theme plain
+skinparam monochrome true
+left to right direction
+
+actor 事務職員 as staff
+actor 学生 as student
+actor 教職員 as teacher
+
+boundary "貸出処理画面" as checkoutScreen
+boundary "認証画面" as authenticationScreen
+
+control "貸出処理コントローラ" as checkoutController
+
+entity "会員" as member
+entity "図書" as book
+entity "貸出履歴" as checkoutHistory
+
+staff -- checkoutScreen : 操作
+staff -- authenticationScreen : 操作
+
+student -- checkoutScreen : 提示
+teacher -- checkoutScreen : 提示
+
+checkoutScreen .> checkoutController : 貸出手続き要求
+
+checkoutController .> authenticationScreen : 利用者認証要求
+
+authenticationScreen ..> member : 会員情報取得
+
+checkoutController ..> member : 貸出状況チェック
+checkoutController ..> book : 図書情報取得
+
+checkoutController .> checkoutHistory : 貸出履歴作成
+checkoutController ..> member : 貸出状況更新
+checkoutController ..> book : 図書ステータス更新
+@enduml

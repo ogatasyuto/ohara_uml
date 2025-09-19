@@ -1,0 +1,28 @@
+@startuml .
+actor 事務職員 as J
+participant 履歴画面UI as UI
+participant 閲覧コントローラ as C
+database 貸出予約DB as DB
+
+activate J
+J -> UI: "貸し出し・予約履歴"を選択
+activate UI
+UI -> C: 貸出・予約情報の要求
+activate C
+C -> DB: 貸出中データおよび予約データ取得
+activate DB
+DB --> C: データ(リスト)を返却
+deactivate DB
+
+alt 該当データが存在する場合
+    C -> UI: データ（表示用）を返却
+    UI -> J: 貸し出し・予約履歴画面を表示
+else 該当データが存在しない場合
+    C -> UI: "なし"メッセージ
+    UI -> J: メッセージを表示
+end
+
+deactivate UI
+deactivate C
+deactivate J
+@enduml

@@ -1,0 +1,61 @@
+@startuml .
+actor 利用者 as U
+participant 事務職員 as J
+participant 貸出UI as UI
+participant 貸出コントローラ as C
+database 会員図書DB as DB
+
+activate U
+U -> J: 1. 借りたい図書と身分証を提示
+
+activate J
+J -> UI: 2. 身分証情報を入力 (会員情報確認)
+
+activate UI
+UI -> C: 貸出資格チェック要求(会員情報)
+
+activate C
+C -> DB: 3. 利用者の貸出状況を取得
+activate DB
+DB --> C: 貸出状況データ (冊数,延滞有無)
+deactivate DB
+
+alt 貸出上限を超えている OR 返却期限超過図書がある
+    C -> UI: エラーメッセージ
+    UI -> J: エラーメッセージを表示
+    J -> U: エラーを伝え、貸出中止
+    deactivate C
+    deactivate UI
+    deactivate J
+else 貸出資格OK (基本フロー続行)
+    J -> UI: 4. 図書の管理番号を入力 (図書情報確認)
+    UI -> C: 図書の貸出可否チェック要求(管理番号)
+
+    C -> DB: 5. 図書の貸出可否(ステータス)を取得
+    activate DB
+    DB --> C: 貸出可否情報 (貸出可/否)
+    deactivate DB
+    
+    alt 図書が貸出可能でない
+        C -> UI: エラーメッセージ
+        UI -> J: エラーメッセージを表示
+        J -> U: エラーを伝え、貸出中止
+        deactivate C
+        deactivate UI
+        deactivate J
+    else 図書が貸出可能 (基本フロー続行)
+        C -> DB: 6. 貸出情報登録とステータス更新を要求
+        activate DB
+        DB --> C: 貸出登録完了通知
+        deactivate DB
+
+        C -> UI: 貸出完了メッセージ
+        UI -> J: 貸出完了通知と返却予定日を表示
+        J -> U: 8. 貸出完了（図書と返却予定日の伝達）
+        deactivate C
+        deactivate UI
+        deactivate J
+    end
+end
+deactivate U
+@enduml

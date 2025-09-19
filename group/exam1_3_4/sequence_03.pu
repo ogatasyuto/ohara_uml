@@ -1,0 +1,44 @@
+@startuml .
+actor 利用者 as U
+participant 事務職員 as J
+participant 予約UI as UI
+participant 予約コントローラ as C
+database 予約DB as DB
+participant 連絡システム as E
+
+activate U
+U -> J: 1. 予約カードと身分証を提示
+
+activate J
+J -> UI: 予約情報(書名/会員情報)を入力
+    
+activate UI
+UI -> C: 2. 図書の予約要求
+
+activate C
+C -> DB: 予約対象図書の貸出状況と既存の予約リストを取得
+activate DB
+DB --> C: 図書/予約データ(貸出中確認、予約順序)
+deactivate DB
+
+alt 既に予約リストがある場合 (代替フロー)
+    C -> C: 予約リストの末尾に新しい予約を追加(順序決定)
+else 予約リストがない場合
+    C -> C: 新しい予約を先頭として登録
+end
+
+C -> DB: 予約情報を登録 (会員、図書、順序)
+activate DB
+DB --> C: 予約登録完了通知
+deactivate DB
+
+C -> UI: 予約完了メッセージ(予約順序含む)
+UI -> J: 予約完了通知と順序を表示
+    
+J -> E: 3. 予約登録完了（図書が返却され次第連絡する）
+
+deactivate C
+deactivate UI
+deactivate J
+deactivate U
+@enduml

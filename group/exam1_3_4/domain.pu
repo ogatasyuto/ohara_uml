@@ -1,0 +1,53 @@
+@startuml
+ 
+left to right direction
+entity 会員 {
+    会員番号
+    氏名
+}
+ 
+entity 学生 {
+    最大貸出冊数 = 6
+}
+ 
+entity 教職員 {
+    最大貸出冊数 = 12
+}
+ 
+ 
+entity 図書 {
+  管理番号
+  タイトル
+  種別(書籍/雑誌)
+}
+ 
+entity 貸出 {
+  貸出日
+  返却期限
+}
+ 
+entity 返却 {
+  返却日
+}
+entity 予約 {
+  予約日
+}
+entity 貸出履歴 {
+  記録ID
+}
+ 
+学生 --o 会員
+教職員 --o 会員
+ 
+会員 --o 貸出
+会員 o--o 予約
+ 
+貸出 o--o 返却
+貸出 --o 図書
+予約 --o 図書
+ 
+図書 --o 貸出履歴
+ 
+ 
+@enduml
+ 

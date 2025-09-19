@@ -1,0 +1,39 @@
+@startuml .
+actor 返却者 as U
+participant 事務職員 as J
+participant 返却UI as UI
+participant 返却コントローラ as C
+database 貸出予約DB as DB
+
+activate U
+U -> J: 1. 返却する図書を提示
+
+activate J
+J -> UI: 図書情報入力
+    
+activate UI
+UI -> C: 2. 返却処理要求 (貸出記録の削除)
+
+activate C
+C -> DB: 貸出記録の削除と会員/図書ステータス更新
+    
+C -> DB: 3. 予約者の有無を確認
+activate DB
+DB --> C: 予約情報(有/無)を返却
+deactivate DB
+
+alt 予約者がいる場合
+    C -> J: 予約者への連絡指示
+    J -> J: 1. 事務職員は予約していた利用者にメールで連絡する
+    note right of J: 予約本の取り置きも含む
+end
+
+C -> UI: 4. 返却処理完了通知
+UI -> J: 返却完了メッセージ表示
+J -> U: 返却完了を通知
+
+deactivate C
+deactivate UI
+deactivate J
+deactivate U
+@enduml

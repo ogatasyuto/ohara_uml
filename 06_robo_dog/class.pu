@@ -3,21 +3,25 @@ skinparam classAttributeIconSize 0
 hide circle
 
 class RoboDog {
--名前
--時刻
--朝の挨拶
--昼の挨拶
--夜の挨拶
--1つ目の整数
--2つ目の整数
--足し算の結果
+-MyName: String
+ 'datetime? bigint?=UNIXTime
+ 'UniXTime 1970/01/01 00:00:00 を0として、1行ずつ追加するもの
+-myTime: int
+-goodMorning: String
+-goodAfternoon: String
+-goodEvening: String
+-firstValue: int
+-secondValue: int
+'教科書に記載されてない
+-result: int
  
-+getMyName()
-+setMyName()
-+setNewTime()
-+getMyGreeting()
-+setTwoValues()
-+setAndGetResult()
++getMyName(): String
++setNewName(): int
++setNewTime(): void
++getMyGreeting(): String
+'教科書に記載されてない
++setTwoValues(): void
++setAndGetResult(): int
 }
 
 @enduml

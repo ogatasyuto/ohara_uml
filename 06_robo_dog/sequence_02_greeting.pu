@@ -4,8 +4,8 @@ skinparam boundaryBackgroundColor #D5E8D4
 skinparam entityBackgroundColor   #DAE8FC
 
 actor ユーザー as A
-boundary "RoboDog_menu.htm"  as B1
-boundary "GreetWithTime.htm"  as B2
+boundary "RoboDog_menu.htm" as B1
+boundary "GreetWithTime.htm" as B2
 boundary 挨拶表示画面 as B3
 control "GreetWithTime.jsp" as C1
 control 挨拶取得 as C2

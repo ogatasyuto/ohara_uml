@@ -3,10 +3,13 @@ hide footbox
 skinparam boundaryBackgroundColor #D5E8D4
 skinparam entityBackgroundColor   #DAE8FC
 
-actor 顧客 as A
-boundary 検索結果  as B1
-boundary 検索ページ as B2
-entity カタログ as E
+actor ユーザー as A
+boundary "RoboDog_menu.htm"  as B1
+boundary "GreetWithTime.htm"  as B2
+boundary 挨拶表示画面 as B3
+control "GreetWithTime.jsp" as C1
+control 挨拶取得 as C2
+entity "RoboDog.java" as E
 
 A -> B1: OnSeach()
 activate A
@@ -19,14 +22,14 @@ B1 -> E: searchByAuthot()
 
 
 activate C1
-C1 -> E: 時刻保存()
+C1 -> E: setNewTime()
 activate E
 E --> C1: 保存完了()
 deactivate E
 
 C1 -> C2: 時刻に応じた挨拶の言葉を取得()
 activate C2
-C2 -> E: 挨拶参照()
+C2 -> E: getMyGreeting()
 activate E
 E --> C2: 挨拶の言葉
 deactivate E

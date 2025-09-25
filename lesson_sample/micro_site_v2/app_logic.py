@@ -69,5 +69,6 @@ def get_addition() -> int:
     """足し算の結果を返す"""
     with open(ROBODOG_FILE, "r", encoding="utf-8") as f:
         data = json.load(f)
-    get_addition = data['first_value'] + data['second_value']
-    return get_addition
+    addition = (data['first_value'] or 0) + (data['second_value'] or 0)
+
+    return addition

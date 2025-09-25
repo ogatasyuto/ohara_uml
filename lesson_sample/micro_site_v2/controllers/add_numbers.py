@@ -7,9 +7,13 @@ def add_numbers(environ):
         data = parse_post(environ)
         first_value = data.get("first_value", [0])[0]
         second_value = data.get("second_value", [0])[0]
-
+        
         set_first_value(first_value)
         set_second_value(second_value)
+
+    # ここに処理を書く
+    set_first_value(10)
+    set_second_value(20)
 
     addition = get_addition()
 

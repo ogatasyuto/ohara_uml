@@ -1,0 +1,24 @@
+@startuml BBショップ注文管理システムユースケース図
+left to right direction
+actor 事業者 as U1
+
+'模範用(予想解答)
+rectangle BBショップ注文管理システム {
+  usecase "商品を販売" as UC1
+  usecase "商品を注文または購入" as UC2
+  usecase "商品の予約や注文状況を確認" as UC3
+  usecase "支払い方法はクレジットカードのみ" as UC4
+  usecase "発送できる地域を国内とする" as UC5
+  usecase "商品の返品" as UC6
+  usecase "商品のオプションは存在しない" as UC7
+  }
+
+U1 --> UC1
+U1 --> UC2
+U1 --> UC3
+U1 --> UC4
+U1 --> UC5
+U1 --> UC6
+U1 --> UC7
+
+@enduml

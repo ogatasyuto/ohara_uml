@@ -1,0 +1,119 @@
+@startuml 大原情報科学大学・図書館システムクラス図
+skinparam handwritten false
+skinparam classAttributeIconSize 0
+
+' ====================================================================
+' 1. クラス定義 (Core Entities)
+' ====================================================================
+
+class 会員 {
+ -会員番号: int
+ -氏名: String
+ -生年月日: Date
+ -電話番号: String
+ -メールアドレス: String
+ -貸出上限冊数: int
+ -現在の貸出冊数: int
+
+ +予約する(): void
+ +借りる(): void '出上限冊数を超えていないか確認
+ +返却する(): void
+ +会員登録する(): void
+ +貸出可能か確認する(): boolean
+}
+
+
+class 学生 {
+- 学生番号: int
+}
+学生 --|> 会員
+
+class 教職員 {
+- 職員番号: int
+}
+教職員 --|> 会員
+
+class 貸出情報 {
+ -貸出ID: int
+ -貸出日: Date
+ -返却期限: Date
+ -返却日: Date
+
+ +貸し出す(): void
+ +返却する(): void
+}
+
+貸出情報 -- 会員
+貸出情報 -- 図書
+
+
+
+
+
+class 図書 {
+ -管理番号: int
+ -書名: String
+ -著者: String
+ -出版社: String
+ -ISBN: String
+ -書籍: String
+ -雑誌: String
+ -貸出情報: String
+ -予約情報: String
+
+ +貸し出す(): void
+ +返却する(): void
+ +予約する(): void
+}
+
+class 書籍 {
+}
+
+class 雑誌 {
+
+}
+書籍 --|> 図書
+雑誌 --|> 図書
+
+
+
+class 予約情報 {
+ -予約ID: int
+ -予約日時: DateTime
+ -キャンセル日時: DateTime
+
+ +予約する(): void
+ +キャンセルする(): void
+}
+予約情報 -- 会員
+予約情報 -- 図書
+
+
+
+class 事務職員 {
+-職員番号: int
+-メールアドレス: String
+-電話番号: String
+    
++貸し出し予約の受付をする(): void
++貸し出しと返却を処理する(): void
++貸し出し履歴と図書の予約を閲覧する(): void
+}
+class 貸出履歴 {
+ -履歴ID: int
+ -貸出日: Date
+ -返却日: Date
+
+ +履歴を表示する(): void
+}
+class 予約待ちリスト {
+ -リストID: int
+ -会員ID: int
+ -図書ID: int
+ -予約日時: DateTime
+
+ +追加する(): void
+ +削除する(): void
+}
+
+@enduml
